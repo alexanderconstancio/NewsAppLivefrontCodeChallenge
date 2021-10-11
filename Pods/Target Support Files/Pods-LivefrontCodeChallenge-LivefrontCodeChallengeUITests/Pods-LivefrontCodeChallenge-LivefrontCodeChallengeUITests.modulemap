@@ -1,0 +1,6 @@
+framework module Pods_LivefrontCodeChallenge_LivefrontCodeChallengeUITests {
+  umbrella header "Pods-LivefrontCodeChallenge-LivefrontCodeChallengeUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

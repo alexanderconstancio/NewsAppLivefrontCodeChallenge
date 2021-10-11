@@ -1,0 +1,32 @@
+PODS:
+  - Alamofire (5.4.4)
+  - DropDown (2.3.13)
+  - Nuke (9.5.0)
+  - SkeletonView (1.15.0)
+  - SwiftSoup (2.3.3)
+
+DEPENDENCIES:
+  - Alamofire (~> 5.4)
+  - DropDown
+  - Nuke (~> 9.0)
+  - SkeletonView
+  - SwiftSoup
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - DropDown
+    - Nuke
+    - SkeletonView
+    - SwiftSoup
+
+SPEC CHECKSUMS:
+  Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
+  Nuke: 6f400a4ea957e09149ec335a3c6acdcc814d89e4
+  SkeletonView: cac18a3ac4f893b09d99e65072d806ef08377aae
+  SwiftSoup: 8e4844e785a975744f2c2606f8b3844ef67eb259
+
+PODFILE CHECKSUM: 14d0d85f759ceeef3d7a2746cc33bf316b5bb291
+
+COCOAPODS: 1.11.2
