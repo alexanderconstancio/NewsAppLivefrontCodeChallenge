@@ -11,7 +11,6 @@ import UIKit
 extension HomeViewController: ActionSheetPresenterDelegate {
     
     func dateRangeSelected(range: Int) {
-        print(range)
         reloadArticleCellsDelegate?.ActivateCellSkeletonView()
         
         reloadBasicArticleCellsDelegate.forEach { delegate in

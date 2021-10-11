@@ -94,6 +94,5 @@ class HomeViewController: UIViewController {
         spinner.view.frame = view.frame
         collectionView.addSubview(spinner.view)
         spinner.didMove(toParent: self)
-//        view.bringSubviewToFront(spinner.view)
     }
 }
