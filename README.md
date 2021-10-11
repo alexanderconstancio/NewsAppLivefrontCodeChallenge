@@ -1,6 +1,6 @@
 # News! LivefrontCodeChallenge
 
-This app uses the NYT API to fetch and displays popular aticles. Filter between popular articles today, last 7 days, and last 30 days.
+This app uses the NYT API to fetch and display popular aticles. Filter between popular articles today, last 7 days, and last 30 days.
 Uses SwiftSoup to scrape the article body and display on the details page.
 
 - Tested using Unit test for API links and keys. 
