@@ -22,6 +22,9 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         basicCell.shareSheetDelegate = self
         
             let articleViewModel = articleViewModels[indexPath.item]
+        
+        // Create a delay when hiding skeletonView animation.
+        // This call is only relevent when the page is reloaded
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 topCell.hideAnimation()
                 basicCell.hideAnimation()
@@ -31,6 +34,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
                 reloadArticleCellsDelegate = topCell
                 topCell.articleViewModel = articleViewModel
                 
+                // remove initial spinner from parent views
                 self.spinner.willMove(toParent: nil)
                 self.spinner.view.removeFromSuperview()
                 self.spinner.removeFromParent()
@@ -50,6 +54,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             return CGSize(width: view.frame.width - 20, height: 500)
         }
         
+        // this logic returns the basic cells layout side by side
         let flowayout = collectionViewLayout as? UICollectionViewFlowLayout
         let space: CGFloat = (flowayout?.minimumInteritemSpacing ?? 0.0) + (flowayout?.sectionInset.left ?? 0.0) + (flowayout?.sectionInset.right ?? 0.0)
         let size: CGFloat = (collectionView.frame.size.width - space) / 2.0
@@ -63,9 +68,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let articleBodyVC = ArticleBodyViewController()
-        
         let articleViewModel = articleViewModels[indexPath.item]
-        
         articleBodyVC.article = articleViewModel
         
         self.present(articleBodyVC, animated: true)

@@ -21,8 +21,9 @@ class BasicArticleCell: UICollectionViewCell {
             articleTitleLabel.text = articleViewModel.title
             dateLabel.text = articleViewModel.date
             
-            // I know this is strange lol but I needed a non-image url so that NUKE will throw and error and provide me with the failure
-            // image when one is not available.
+            /* I know this is strange lol but I needed a non-image url so that NUKE will
+             throw and error and provide me with the failure
+            image when one is not available. */
             let thumb = articleViewModel.jsonImg.metaData.last?.url ?? "https://www.google.com/"
             let mediaUrl = URL(string: thumb)
             let options = ImageLoadingOptions(failureImage: #imageLiteral(resourceName: "image-not-found"))

@@ -23,6 +23,9 @@ class HomeViewController: UIViewController {
     var articleViewModels = [ArticleViewModel]()
     let spinner = SpinnerViewController()
     
+    /// Param used to first load of all popular articles today
+    let popularArticlesToday = 1
+    
     let collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         let CV = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: flowLayout)
@@ -31,16 +34,18 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.isHidden = true
+        setupCollectionView()
         createSpinnerView()
         setupStatusBarView()
         
-        fetchArticleDataWith(timeFrame: 1)
-        setupCollectionView()
-        
+        // Initial load is done with 'today' param
+        fetchArticleDataWith(timeFrame: popularArticlesToday)
     }
     
+    /// Adds a custom view behind the status bar so it looks prettier
     fileprivate func setupStatusBarView() {
+        navigationController?.navigationBar.isHidden = true
+        
         if #available(iOS 13.0, *) {
             let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
             statusBarFrame = window?.windowScene?.statusBarManager?.statusBarFrame ?? CGRect(x: 0, y: 0, width: 0, height: 0)
@@ -53,6 +58,7 @@ class HomeViewController: UIViewController {
         view.addSubview(statusBarView)
     }
     
+    /// All collectionView properties and setup
     fileprivate func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -70,6 +76,7 @@ class HomeViewController: UIViewController {
         collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: view.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor, centerX: nil, centerY: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, xPadding: 0, yPadding: 0)
     }
     
+    /// Fetches articles with timeFrame param. Params are specified in the NYT_APIService documentation
     func fetchArticleDataWith(timeFrame: Int) {
         NYT_APIService.fetchPopularArticlesBy(timeframe: timeFrame) { [unowned self] articles, error in
             if let error = error {

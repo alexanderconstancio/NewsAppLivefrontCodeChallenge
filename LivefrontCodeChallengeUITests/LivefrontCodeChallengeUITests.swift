@@ -17,5 +17,4 @@ class LivefrontCodeChallengeUITests: XCTestCase {
         XCTAssertTrue(collectionViewsQuery.cells.containing(.staticText, identifier:"News!").children(matching: .other).element(boundBy: 0).exists)
         
     }
-    
 }

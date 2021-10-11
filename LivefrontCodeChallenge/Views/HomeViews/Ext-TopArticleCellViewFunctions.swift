@@ -39,13 +39,13 @@ extension TopArticleCell {
             self.optionsButton.isHidden = true
             self.dateLabel.isHidden = true
             self.changeArticleRangeButton.isHidden = true
-            
         }
     }
     
     /// Setup for the cells drop down menus, article options and date range options
     func setupMenuDropdown() {
         
+        // Setup for cell options menu
         articleOptionsDropDown.setupCustomDropdown(options: ["Share", "Copy link"], anchorButton: optionsButton)
         articleOptionsDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             if index == 0 {
@@ -56,6 +56,7 @@ extension TopArticleCell {
             self.articleOptionsDropDown.clearSelection()
         }
         
+        // Setup for article list timeframe menu
         dateRangeDropDown.setupCustomDropdown(options: ["Today", "Past week", "Last 30 days"], anchorButton: changeArticleRangeButton)
         dateRangeDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
         
@@ -87,6 +88,7 @@ extension TopArticleCell {
         shareSheetDelegate?.presentActionSheet(sheet: shareSheetVC)
     }
     
+    /// You guessed it, copies article link to the clipboard
     fileprivate func copyToClipboard() {
         guard let articleUrl = articleViewModel?.url else { return }
         UIPasteboard.general.string = articleUrl
@@ -94,15 +96,13 @@ extension TopArticleCell {
         shareSheetDelegate?.showCopyToClipAlert()
     }
     
+    /// Show dropdown menu for article cell options
+    @objc func showCellOptionsMenu() {
+        articleOptionsDropDown.show()
+    }
+    
     /// Sets background color for cell and anchors all of the cells subviews
     func setupViews() {
-        
-//        if ArticleCellService.isFirstTimeLoad == true {
-//            showSkeletonAnimation()
-//            ArticleCellService.isFirstTimeLoad = false
-//        }
-        
-        
         contentView.isUserInteractionEnabled = false
         backgroundColor = .dynamicColor(light: .systemGray6, dark: .black)
         
@@ -134,8 +134,5 @@ extension TopArticleCell {
         
         addSubview(optionsButton)
         optionsButton.anchor(top: nil, left: nil, bottom: bottomAnchor, right: rightAnchor, centerX: nil, centerY: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 5, paddingRight: 10, width: 30, height: 30, xPadding: 0, yPadding: 0)
-//        bringSubviewToFront(optionsButton)
-        
-
     }
 }

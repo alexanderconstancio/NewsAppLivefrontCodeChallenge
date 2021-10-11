@@ -26,8 +26,9 @@ class TopArticleCell: UICollectionViewCell {
             
             self.dateLabel.text = articleViewModel.date
             
-            // I know this is strange lol but I needed a non-image url so that NUKE will throw and error and provide me with the failure
-            // image when one is not available.
+            /* I know this is strange lol but I needed a non-image url so that NUKE will
+             throw and error and provide me with the failure
+            image when one is not available. */
             let thumb = articleViewModel.jsonImg.metaData.last?.url ?? "https://www.google.com/"
             let mediaUrl = URL(string: thumb)
             let options = ImageLoadingOptions(failureImage: #imageLiteral(resourceName: "image-not-found"))
@@ -96,14 +97,10 @@ class TopArticleCell: UICollectionViewCell {
     lazy var optionsButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
-        button.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showCellOptionsMenu), for: .touchUpInside)
         button.tintColor = .systemIndigo
         return button
     }()
-    
-    @objc func showMenu() {
-        articleOptionsDropDown.show()
-    }
     
     let dateLabel: UILabel = {
         let label = UILabel()

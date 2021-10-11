@@ -13,13 +13,13 @@ class LivefrontCodeChallengeTests: XCTestCase {
     var sut: URLSession!
 
     override func setUpWithError() throws {
-      try super.setUpWithError()
-      sut = URLSession(configuration: .default)
+        try super.setUpWithError()
+        sut = URLSession(configuration: .default)
     }
 
     override func tearDownWithError() throws {
-      sut = nil
-      try super.tearDownWithError()
+        try super.tearDownWithError()
+        sut = nil
     }
     
     func testValidApiCallGetsHTTPStatusCode200() throws {

@@ -53,6 +53,7 @@ class ArticleBodyViewController: UIViewController {
         createSpinnerView()
     }
     
+    /// All collectionView properties and setup
     fileprivate func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self

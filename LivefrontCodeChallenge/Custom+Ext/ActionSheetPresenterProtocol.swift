@@ -10,7 +10,13 @@ import UIKit
 
 /// Provides instructions for article cell menu option functions
 protocol ActionSheetPresenterDelegate: AnyObject {
+    
+    /// Presents actionsheet for sharing article url
     func presentActionSheet(sheet: UIActivityViewController)
+    
+    /// Presents an alert controller from the homeViewController for copied to clipboard alert
     func showCopyToClipAlert()
+    
+    /// Activates method from homeViewController inside of the cell and reloads the articles with a new time range
     func dateRangeSelected(range: Int)
 }

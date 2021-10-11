@@ -31,7 +31,6 @@ extension HomeViewController: ActionSheetPresenterDelegate {
     }
     
     func presentActionSheet(sheet: UIActivityViewController) {
-        
         present(sheet, animated: true)
     }
 }
