@@ -10,7 +10,7 @@ UItesting done for buttons and gestures.
 
 Features:
 - Modern UI adabtable to light and dark mode.
-- Skeleton loading indicators 
+- Skeleton loading views 
 - Modern dropdown menus
 - Share article link via sharesheet
 - Copy article link to clipboard
