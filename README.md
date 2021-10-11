@@ -1,7 +1,5 @@
 # News! LivefrontCodeChallenge
 
-Please download and run pod install.
-
 This app uses the NYT API and displays popular aticles. Filter between popular articles today, last 7 days, and last 30 days.
 Uses SwiftSoup to scrape the article body.
 
