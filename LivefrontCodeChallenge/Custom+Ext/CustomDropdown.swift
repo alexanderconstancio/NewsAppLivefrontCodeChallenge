@@ -10,8 +10,7 @@ import DropDown
 
 /// Custom dropdown object with my settings
 class CellMenuDropdown: DropDown {
-    
-    /// provide an array of option strings and a button to anchor to. Will return a custom dropdown menu
+    /// Provide an array of option strings and a button to anchor to. Will return a custom dropdown menu
     func setupCustomDropdown(options: [String], anchorButton: UIButton) {
         cornerRadius = 10
         backgroundColor = .systemGray6

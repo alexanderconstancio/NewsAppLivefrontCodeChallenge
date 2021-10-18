@@ -11,12 +11,17 @@ import SkeletonView
 
 extension TopArticleCell {
     
+    /// Presents date range dropdown for article range
+    @objc func showDateRangeMenu() {
+        dateRangeDropDown.show()
+    }
+    
     /// Hides skeleton loading indicators for the home screen collectionView
     func hideAnimation() {
         articleImg.hideSkeleton()
         articleTitleLabel.hideSkeleton()
         byLabel.hideSkeleton()
-        popularLabel.hideSkeleton()
+        timeFrameLabel.hideSkeleton()
         
         separatorLineView.isHidden = false
         dateLabel.isHidden = false
@@ -27,10 +32,9 @@ extension TopArticleCell {
     
     /// Activates skeleton loading indicators for the home screen collectionView
     func showSkeletonAnimation() {
-        
-        // We need to animate the skeleton asyncronously because otherwise it will be executed before the views are drawn
+        // We need to animate the skeleton asynchronously because otherwise it will be executed before the views are drawn
         DispatchQueue.main.async {
-            self.popularLabel.showAnimatedGradientSkeleton()
+            self.timeFrameLabel.showAnimatedGradientSkeleton()
             self.articleImg.showAnimatedGradientSkeleton()
             self.articleTitleLabel.showAnimatedGradientSkeleton()
             self.byLabel.showAnimatedGradientSkeleton()
@@ -44,10 +48,10 @@ extension TopArticleCell {
     
     /// Setup for the cells drop down menus, article options and date range options
     func setupMenuDropdown() {
-        
         // Setup for cell options menu
         articleOptionsDropDown.setupCustomDropdown(options: ["Share", "Copy link"], anchorButton: optionsButton)
         articleOptionsDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            
             if index == 0 {
                 self.presentShareSheet()
             } else if index == 1 {
@@ -62,16 +66,13 @@ extension TopArticleCell {
         
             if index == 0 {
                 // Today option selected. Param: 1
-                shareSheetDelegate?.dateRangeSelected(range: 1)
-                popularLabel.text = "Trending Today"
+                shareSheetDelegate?.dateRangeSelected(inRange: 1)
             } else if index == 1 {
                 // last 7 days option selected. Param: 7
-                shareSheetDelegate?.dateRangeSelected(range: 7)
-                popularLabel.text = "Trending this Week"
+                shareSheetDelegate?.dateRangeSelected(inRange: 7)
             } else if index == 2 {
                 // last 30 days selected: Param: 30
-                shareSheetDelegate?.dateRangeSelected(range: 30)
-                popularLabel.text = "Trending Last 30 Days"
+                shareSheetDelegate?.dateRangeSelected(inRange: 30)
             }
             self.dateRangeDropDown.clearSelection()
         }
@@ -85,7 +86,7 @@ extension TopArticleCell {
         }
         
         let shareSheetVC = UIActivityViewController(activityItems: [url], applicationActivities: .none)
-        shareSheetDelegate?.presentActionSheet(sheet: shareSheetVC)
+        shareSheetDelegate?.presentActionSheet(forSheet: shareSheetVC)
     }
     
     /// You guessed it, copies article link to the clipboard
@@ -106,33 +107,86 @@ extension TopArticleCell {
         contentView.isUserInteractionEnabled = false
         backgroundColor = .dynamicColor(light: .systemGray6, dark: .black)
         
+        // Anchor timeFrameLabel
+        addSubview(timeFrameLabel)
+        timeFrameLabel
+            .anchor(top: topAnchor, left: leftAnchor,
+                    bottom: nil, right: nil,
+                    centerX: nil, centerY: nil,
+                    paddingTop: 20, paddingLeft: 10, paddingBottom: 0, paddingRight: 0,
+                    width: 0, height: 0, xPadding: 0, yPadding: 0)
         
-        addSubview(popularLabel)
-        popularLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, centerX: nil, centerY: nil, paddingTop: 20, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, xPadding: 0, yPadding: 0)
-        
+        // Anchor container view and send it to the back
         addSubview(topCellContainerView)
-        topCellContainerView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, centerX: nil, centerY: nil, paddingTop: 60, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, xPadding: 0, yPadding: 0)
         sendSubviewToBack(topCellContainerView)
+        topCellContainerView
+            .anchor(top: topAnchor, left: leftAnchor,
+                    bottom: bottomAnchor, right: rightAnchor,
+                    centerX: nil, centerY: nil,
+                    paddingTop: 60, paddingLeft: 0, paddingBottom: 0, paddingRight: 0,
+                    width: 0, height: 0, xPadding: 0, yPadding: 0)
         
+        // Anchor article image
         addSubview(articleImg)
-        articleImg.anchor(top: topCellContainerView.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, centerX: nil, centerY: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 250, xPadding: 0, yPadding: 0)
+        articleImg
+            .anchor(top: topCellContainerView.topAnchor, left: leftAnchor,
+                    bottom: nil, right: rightAnchor,
+                    centerX: nil, centerY: nil,
+                    paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0,
+                    width: 0, height: 250, xPadding: 0, yPadding: 0)
         
+        // Anchor article range dropdown button
         addSubview(changeArticleRangeButton)
-        changeArticleRangeButton.anchor(top: nil, left: popularLabel.rightAnchor, bottom: nil, right: nil, centerX: nil, centerY: popularLabel.centerYAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: 30, height: 30, xPadding: 0, yPadding: 0)
+        changeArticleRangeButton
+            .anchor(top: nil, left: timeFrameLabel.rightAnchor,
+                    bottom: nil, right: nil,
+                    centerX: nil, centerY: timeFrameLabel.centerYAnchor,
+                    paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 0,
+                    width: 30, height: 30, xPadding: 0, yPadding: 0)
         
+        // Anchor article author label
         addSubview(byLabel)
-        byLabel.anchor(top: articleImg.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, centerX: nil, centerY: nil, paddingTop: 10, paddingLeft: 15, paddingBottom: 0, paddingRight: 0, width: 250, height: 0, xPadding: 0, yPadding: 0)
+        byLabel
+            .anchor(top: articleImg.bottomAnchor, left: leftAnchor,
+                    bottom: nil, right: nil,
+                    centerX: nil, centerY: nil,
+                    paddingTop: 10, paddingLeft: 15, paddingBottom: 0, paddingRight: 0,
+                    width: 250, height: 0, xPadding: 0, yPadding: 0)
         
+        // Anchor article title label
         addSubview(articleTitleLabel)
-        articleTitleLabel.anchor(top: byLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, centerX: nil, centerY: nil, paddingTop: 5, paddingLeft: 15, paddingBottom: 0, paddingRight: 15, width: 0, height: 0, xPadding: 0, yPadding: 0)
+        articleTitleLabel
+            .anchor(top: byLabel.bottomAnchor, left: leftAnchor,
+                    bottom: nil, right: rightAnchor,
+                    centerX: nil, centerY: nil,
+                    paddingTop: 5, paddingLeft: 15, paddingBottom: 0, paddingRight: 15,
+                    width: 0, height: 0, xPadding: 0, yPadding: 0)
         
+        // Anchor small bottom separator line
         addSubview(separatorLineView)
-        separatorLineView.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, centerX: nil, centerY: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 40, paddingRight: 0, width: 0, height: 0.4, xPadding: 0, yPadding: 0)
+        separatorLineView
+            .anchor(top: nil, left: leftAnchor,
+                    bottom: bottomAnchor, right: rightAnchor,
+                    centerX: nil, centerY: nil,
+                    paddingTop: 0, paddingLeft: 0, paddingBottom: 40, paddingRight: 0,
+                    width: 0, height: 0.4, xPadding: 0, yPadding: 0)
         
+        // Anchor article date label
         addSubview(dateLabel)
-        dateLabel.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: nil, centerX: nil, centerY: nil, paddingTop: 0, paddingLeft: 15, paddingBottom: 10, paddingRight: 0, width: 0, height: 0, xPadding: 0, yPadding: 0)
+        dateLabel
+            .anchor(top: nil, left: leftAnchor,
+                    bottom: bottomAnchor, right: nil,
+                    centerX: nil, centerY: nil,
+                    paddingTop: 0, paddingLeft: 15, paddingBottom: 10, paddingRight: 0,
+                    width: 0, height: 0, xPadding: 0, yPadding: 0)
         
+        // Anchor small dropdown options button
         addSubview(optionsButton)
-        optionsButton.anchor(top: nil, left: nil, bottom: bottomAnchor, right: rightAnchor, centerX: nil, centerY: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 5, paddingRight: 10, width: 30, height: 30, xPadding: 0, yPadding: 0)
+        optionsButton
+            .anchor(top: nil, left: nil,
+                    bottom: bottomAnchor, right: rightAnchor,
+                    centerX: nil, centerY: nil,
+                    paddingTop: 0, paddingLeft: 0, paddingBottom: 5, paddingRight: 10,
+                    width: 30, height: 30, xPadding: 0, yPadding: 0)
     }
 }

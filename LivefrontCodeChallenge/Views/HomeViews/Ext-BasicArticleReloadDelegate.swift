@@ -9,7 +9,14 @@ import Foundation
 import UIKit
 
 extension BasicArticleCell: ReloadBasicArticlesDelegate {
-    func ActivateCellSkeletonView() {
+    
+    // Hides skeleton views 
+    func hideCellSkeletonView() {
+        hideAnimation()
+    }
+    
+    // Activates skeleton views through required function
+    func activateCellSkeletonView() {
         showAnimatedSkeletonViews()
     }
 }

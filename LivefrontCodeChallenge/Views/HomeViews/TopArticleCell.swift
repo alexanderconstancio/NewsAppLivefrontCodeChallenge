@@ -14,6 +14,7 @@ class TopArticleCell: UICollectionViewCell {
     
     weak var shareSheetDelegate: ActionSheetPresenterDelegate?
     
+    /// Custom settings dropdown menu
     let articleOptionsDropDown = CellMenuDropdown()
     let dateRangeDropDown = CellMenuDropdown()
     
@@ -36,13 +37,7 @@ class TopArticleCell: UICollectionViewCell {
         }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-        setupMenuDropdown()
-        
-    }
-    
+    /// Container that lets us add a corner radius and set background color
     let topCellContainerView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 25
@@ -50,6 +45,7 @@ class TopArticleCell: UICollectionViewCell {
         return view
     }()
     
+    /// Primary article image
     var articleImg: UIImageView = {
         let img = UIImageView()
         img.layer.cornerRadius = 50 / 2
@@ -60,16 +56,17 @@ class TopArticleCell: UICollectionViewCell {
         return img
     }()
     
-    let popularLabel: UILabel = {
+    /// Label showing fetched article timeframes
+    let timeFrameLabel: UILabel = {
         let label = UILabel()
         label.isSkeletonable = true
-        label.text = "Trending Today"
         label.linesCornerRadius = 8
         label.font = UIFont.systemFont(ofSize: 24, weight: .black)
         label.textColor = .systemGray
         return label
     }()
     
+    /// Label showing the articles author
     let byLabel: UILabel = {
         let label = UILabel()
         label.isSkeletonable = true
@@ -119,8 +116,10 @@ class TopArticleCell: UICollectionViewCell {
         return button
     }()
     
-    @objc func showDateRangeMenu() {
-        dateRangeDropDown.show()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+        setupMenuDropdown()
     }
         
     required init?(coder: NSCoder) {

@@ -10,14 +10,27 @@ import UIKit
 
 extension HomeViewController: ActionSheetPresenterDelegate {
     
-    func dateRangeSelected(range: Int) {
-        reloadArticleCellsDelegate?.ActivateCellSkeletonView()
+    // Handle logic for new article timeframe 
+    func dateRangeSelected(inRange: Int) {
+        reloadArticleCellsDelegate?.activateCellSkeletonView()
         
         reloadBasicArticleCellsDelegate.forEach { delegate in
-            delegate.ActivateCellSkeletonView()
+            delegate.activateCellSkeletonView()
         }
         
-        fetchArticleDataWith(timeFrame: range)
+        fetchArticleDataWith(timeFrame: inRange)
+        
+        // Set the current page title based on the range entered 
+        if inRange == 1 {
+            currentPageIndexTitle = "Trending Today"
+            popularArticlesIndexNumber = 1
+        } else if inRange == 7 {
+            currentPageIndexTitle = "Trending this Week"
+            popularArticlesIndexNumber = 7
+        } else {
+            currentPageIndexTitle = "Trending Last 30 Days"
+            popularArticlesIndexNumber = 30
+        }
     }
     
     func showCopyToClipAlert() {
@@ -29,7 +42,7 @@ extension HomeViewController: ActionSheetPresenterDelegate {
         }
     }
     
-    func presentActionSheet(sheet: UIActivityViewController) {
-        present(sheet, animated: true)
+    func presentActionSheet(forSheet: UIActivityViewController) {
+        present(forSheet, animated: true)
     }
 }

@@ -36,6 +36,7 @@
 		AF81D0A0270645CF00C51986 /* LivefrontCodeChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF81D09F270645CF00C51986 /* LivefrontCodeChallengeTests.swift */; };
 		AF81D0AA270645CF00C51986 /* LivefrontCodeChallengeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF81D0A9270645CF00C51986 /* LivefrontCodeChallengeUITests.swift */; };
 		AF81D0AC270645CF00C51986 /* LivefrontCodeChallengeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF81D0AB270645CF00C51986 /* LivefrontCodeChallengeUITestsLaunchTests.swift */; };
+		AFA360AD271DC06D00E65ECC /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA360AC271DC06D00E65ECC /* ReachabilityService.swift */; };
 		AFB0C89C271345760042E210 /* ArticleBodyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB0C89B271345760042E210 /* ArticleBodyViewController.swift */; };
 		AFB0C89E271345B00042E210 /* ArticleBodyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB0C89D271345B00042E210 /* ArticleBodyViewModel.swift */; };
 		AFB0C8A027134D490042E210 /* Ext-ArticleBodyCVFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB0C89F27134D490042E210 /* Ext-ArticleBodyCVFunctions.swift */; };
@@ -100,6 +101,7 @@
 		AF81D0A5270645CF00C51986 /* LivefrontCodeChallengeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LivefrontCodeChallengeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF81D0A9270645CF00C51986 /* LivefrontCodeChallengeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivefrontCodeChallengeUITests.swift; sourceTree = "<group>"; };
 		AF81D0AB270645CF00C51986 /* LivefrontCodeChallengeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivefrontCodeChallengeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		AFA360AC271DC06D00E65ECC /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
 		AFB0C89B271345760042E210 /* ArticleBodyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleBodyViewController.swift; sourceTree = "<group>"; };
 		AFB0C89D271345B00042E210 /* ArticleBodyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleBodyViewModel.swift; sourceTree = "<group>"; };
 		AFB0C89F27134D490042E210 /* Ext-ArticleBodyCVFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext-ArticleBodyCVFunctions.swift"; sourceTree = "<group>"; };
@@ -206,9 +208,9 @@
 				AF3128E2270F4BFC00124E37 /* UIDate-Ext.swift */,
 				AF4761122710C24C00FDDFC3 /* UIColor-Ext.swift */,
 				AF4B99772712996800ACBABE /* CustomDropdown.swift */,
+				AFB0C8AD2713A9CC0042E210 /* CustomSpinner.swift */,
 				AF58F9732711FD0B00C54785 /* ActionSheetPresenterProtocol.swift */,
 				AF4B997E2712AFBB00ACBABE /* ReloadHomePageProtocol.swift */,
-				AFB0C8AD2713A9CC0042E210 /* CustomSpinner.swift */,
 			);
 			path = "Custom+Ext";
 			sourceTree = "<group>";
@@ -255,6 +257,7 @@
 		AF81D087270645CD00C51986 /* LivefrontCodeChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				AFA360AB271DC04A00E65ECC /* Network Reachability Service */,
 				AF4B997B2712A9FD00ACBABE /* API Service */,
 				AF476116271162A800FDDFC3 /* ViewControllers */,
 				AF29B668270CD97D00832FBE /* Views */,
@@ -284,6 +287,14 @@
 				AF81D0AB270645CF00C51986 /* LivefrontCodeChallengeUITestsLaunchTests.swift */,
 			);
 			path = LivefrontCodeChallengeUITests;
+			sourceTree = "<group>";
+		};
+		AFA360AB271DC04A00E65ECC /* Network Reachability Service */ = {
+			isa = PBXGroup;
+			children = (
+				AFA360AC271DC06D00E65ECC /* ReachabilityService.swift */,
+			);
+			path = "Network Reachability Service";
 			sourceTree = "<group>";
 		};
 		AFB0C8A3271379460042E210 /* HomeViews */ = {
@@ -588,6 +599,7 @@
 				AF4B997F2712AFBB00ACBABE /* ReloadHomePageProtocol.swift in Sources */,
 				AFB0C8A22713713B0042E210 /* ArticleBodyCells.swift in Sources */,
 				AF81D08B270645CD00C51986 /* SceneDelegate.swift in Sources */,
+				AFA360AD271DC06D00E65ECC /* ReachabilityService.swift in Sources */,
 				AFB0C8A6271379C10042E210 /* ArticleBodyHeaderCell.swift in Sources */,
 				AF29B673270D311200832FBE /* Article.swift in Sources */,
 				AF4761112710A9B300FDDFC3 /* Ext-HomeCVHeaderFunctions.swift in Sources */,

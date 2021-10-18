@@ -17,12 +17,16 @@ extension ArticleBodyViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let paraCell = collectionView.dequeueReusableCell(withReuseIdentifier: bodyCellID, for: indexPath) as! ArticleBodyCell
         let articleParagraphs = articleParagraphs[indexPath.item]
+        
+        self.spinner.willMove(toParent: nil)
+        self.spinner.view.removeFromSuperview()
+        self.spinner.removeFromParent()
+        
         paraCell.paragraphString = articleParagraphs
         return paraCell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         // Dynamic sizing for paragraph cells
         let articleParagraphs = articleParagraphs[indexPath.item]
         let frame = CGRect(x: 0, y: 0, width: collectionView.frame.width, height: 200)

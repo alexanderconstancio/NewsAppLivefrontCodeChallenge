@@ -8,6 +8,7 @@
 import Foundation
 import Nuke
 
+/// The view model is initialized with an Article object and prepares the view for data
 struct ArticleViewModel {
     let title: String
     let url: String

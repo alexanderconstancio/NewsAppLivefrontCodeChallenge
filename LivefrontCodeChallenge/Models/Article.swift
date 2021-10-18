@@ -38,6 +38,7 @@ struct Articles: Decodable {
     }
 }
 
+// Create objects to decode image url arrays from the NYT json
 struct JSONImage: Decodable {
     let metaData: [JSONImgMetaData]
     

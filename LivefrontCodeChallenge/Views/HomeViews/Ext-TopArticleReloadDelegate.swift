@@ -9,8 +9,13 @@ import Foundation
 import UIKit
 
 extension TopArticleCell: ReloadNewArticlesDelegate {
+    // Hides skeleton views 
+    func hideCellSkeletonView() {
+        hideAnimation()
+    }
     
-    func ActivateCellSkeletonView() {
+    // Activates skeleton views through required function
+    func activateCellSkeletonView() {
         showSkeletonAnimation()
     }
 }

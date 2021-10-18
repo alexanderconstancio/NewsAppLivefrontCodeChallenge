@@ -28,7 +28,6 @@ extension ArticleBodyViewController {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0 {
-            
             let frame = CGRect(x: 0, y: 0, width: collectionView.frame.width, height: 400)
             let dummyCell = ArticleBodyHeaderCell(frame: frame)
             dummyCell.articleBodyViewModel = articleBodyViewModel

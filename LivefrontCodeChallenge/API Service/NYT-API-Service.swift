@@ -52,9 +52,10 @@ class NYT_APIService {
         
         guard let url = URL(string: articleURLString) else { return }
         
-        let html = try! String(contentsOf: url, encoding: .utf8)
+        let html = try? String(contentsOf: url, encoding: .utf8)
 
         do {
+            guard let html = html else { return }
             let doc: Document = try SwiftSoup.parseBodyFragment(html)
             let paragraph: [Element] = try doc.select("p").array()
             

@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+// Home collectionView supplementary functions 
 extension HomeViewController {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

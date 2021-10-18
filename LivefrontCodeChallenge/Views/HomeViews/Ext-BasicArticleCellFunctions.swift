@@ -32,13 +32,12 @@ extension BasicArticleCell {
         }
         
         let shareSheetVC = UIActivityViewController(activityItems: [url], applicationActivities: .none)
-        shareSheetDelegate?.presentActionSheet(sheet: shareSheetVC)
+        shareSheetDelegate?.presentActionSheet(forSheet: shareSheetVC)
     }
     
     fileprivate func copyToClipboard() {
         guard let articleUrl = articleViewModel?.url else { return }
         UIPasteboard.general.string = articleUrl
-        
         shareSheetDelegate?.showCopyToClipAlert()
     }
     
@@ -53,7 +52,7 @@ extension BasicArticleCell {
     
     /// Activates skeleton loading indicators for the home screen collectionView
     func showAnimatedSkeletonViews() {
-        // We need to animate the skeleton asyncronously because otherwise it will be executed before the views are drawn
+        // We need to animate the skeleton asynchronously because otherwise it will be executed before the views are drawn
         DispatchQueue.main.async {
             self.articleImg.showAnimatedGradientSkeleton()
             self.articleTitleLabel.showAnimatedGradientSkeleton()
@@ -63,27 +62,69 @@ extension BasicArticleCell {
         }
     }
     
+    /// Show menu target for options button
+    @objc func showMenu() {
+        dropDown.show()
+    }
+    
+    /// Setup cells views
     func setupViews() {
         backgroundColor = .dynamicColor(light: .systemGray6, dark: .black)
         contentView.isUserInteractionEnabled = false
         
+        // Anchor custom container view
         addSubview(basicCellContainerView)
-        basicCellContainerView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, centerX: nil, centerY: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, xPadding: 0, yPadding: 0)
+        basicCellContainerView
+            .anchor(top: topAnchor, left: leftAnchor,
+                    bottom: bottomAnchor, right: rightAnchor,
+                    centerX: nil, centerY: nil,
+                    paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0,
+                    width: 0, height: 0, xPadding: 0, yPadding: 0)
         
+        // Anchor article image
         addSubview(articleImg)
-        articleImg.anchor(top: basicCellContainerView.topAnchor, left: basicCellContainerView.leftAnchor, bottom: nil, right: basicCellContainerView.rightAnchor, centerX: nil, centerY: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 125, xPadding: 0, yPadding: 0)
+        articleImg
+            .anchor(top: basicCellContainerView.topAnchor, left: basicCellContainerView.leftAnchor,
+                    bottom: nil, right: basicCellContainerView.rightAnchor,
+                    centerX: nil, centerY: nil,
+                    paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0,
+                    width: 0, height: 125, xPadding: 0, yPadding: 0)
         
+        // Anchor article title label
         addSubview(articleTitleLabel)
-        articleTitleLabel.anchor(top: articleImg.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, centerX: nil, centerY: nil, paddingTop: 10, paddingLeft: 10, paddingBottom: 0, paddingRight: 10, width: 0, height: 0, xPadding: 0, yPadding: 0)
+        articleTitleLabel
+            .anchor(top: articleImg.bottomAnchor, left: leftAnchor,
+                    bottom: nil, right: rightAnchor,
+                    centerX: nil, centerY: nil,
+                    paddingTop: 10, paddingLeft: 10, paddingBottom: 0, paddingRight: 10,
+                    width: 0, height: 0, xPadding: 0, yPadding: 0)
        
+        // Anchor small bottom separator line
         addSubview(separatorLineView)
-        separatorLineView.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, centerX: nil, centerY: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 25, paddingRight: 0, width: 0, height: 0.3, xPadding: 0, yPadding: 0)
+        separatorLineView
+            .anchor(top: nil, left: leftAnchor,
+                    bottom: bottomAnchor, right: rightAnchor,
+                    centerX: nil, centerY: nil,
+                    paddingTop: 0, paddingLeft: 0, paddingBottom: 25, paddingRight: 0,
+                    width: 0, height: 0.3, xPadding: 0, yPadding: 0)
         
+        // Anchor small option dropdown button
         addSubview(optionsButton)
-        optionsButton.anchor(top: nil, left: nil, bottom: bottomAnchor, right: rightAnchor, centerX: nil, centerY: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 5, paddingRight: 8, width: 15, height: 15, xPadding: 0, yPadding: 0)
         bringSubviewToFront(optionsButton)
+        optionsButton
+            .anchor(top: nil, left: nil,
+                    bottom: bottomAnchor, right: rightAnchor,
+                    centerX: nil, centerY: nil,
+                    paddingTop: 0, paddingLeft: 0, paddingBottom: 5, paddingRight: 8,
+                    width: 15, height: 15, xPadding: 0, yPadding: 0)
         
+        // Anchor article date label
         addSubview(dateLabel)
-        dateLabel.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: nil, centerX: nil, centerY: nil, paddingTop: 0, paddingLeft: 12, paddingBottom: 8, paddingRight: 0, width: 0, height: 0, xPadding: 0, yPadding: 0)
+        dateLabel
+            .anchor(top: nil, left: leftAnchor,
+                    bottom: bottomAnchor, right: nil,
+                    centerX: nil, centerY: nil,
+                    paddingTop: 0, paddingLeft: 12, paddingBottom: 8, paddingRight: 0,
+                    width: 0, height: 0, xPadding: 0, yPadding: 0)
     }
 }

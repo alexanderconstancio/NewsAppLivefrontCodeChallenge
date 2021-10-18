@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Initialized with an ArticleViewModel from the cell. Takes an article URL and returns an array of paragraphs from said article
 class ArticleBodyViewModel {
 
     var articleParagraphs = [String]()
@@ -25,6 +26,7 @@ class ArticleBodyViewModel {
         
         self.jsonImg = article.jsonImg
         
+        // Fetch article paragraphs from url string
         NYT_APIService.parseArticleHTMLFromURL(articleURLString: article.url) { paragraphArray in
             self.articleParagraphs = paragraphArray
         }

@@ -31,12 +31,7 @@ class BasicArticleCell: UICollectionViewCell {
         }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-        setupMenuDropdown()
-    }
-    
+    /// Container that lets us add a corner radius and set background color
     let basicCellContainerView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 18
@@ -44,7 +39,7 @@ class BasicArticleCell: UICollectionViewCell {
         return view
     }()
     
-    let articleImgSize: CGFloat = 50
+    /// Primary article image
     let articleImg: UIImageView = {
         let img = UIImageView()
         img.layer.cornerRadius = 18
@@ -55,6 +50,7 @@ class BasicArticleCell: UICollectionViewCell {
         return img
     }()
     
+    /// Article title label
     let articleTitleLabel: UILabel = {
         let label = UILabel()
         label.isSkeletonable = true
@@ -70,6 +66,7 @@ class BasicArticleCell: UICollectionViewCell {
         return view
     }()
     
+    /// Article cell options button
     lazy var optionsButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
@@ -77,10 +74,6 @@ class BasicArticleCell: UICollectionViewCell {
         button.tintColor = .systemIndigo
         return button
     }()
-    
-    @objc func showMenu() {
-        dropDown.show()
-    }
     
     let dateLabel: UILabel = {
         let label = UILabel()
@@ -90,6 +83,12 @@ class BasicArticleCell: UICollectionViewCell {
         label.textColor = .systemIndigo
         return label
     }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+        setupMenuDropdown()
+    }
         
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

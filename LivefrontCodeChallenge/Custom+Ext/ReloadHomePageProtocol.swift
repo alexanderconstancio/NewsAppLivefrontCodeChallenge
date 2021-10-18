@@ -9,10 +9,12 @@ import Foundation
 
 /// Activates skeleton loading views for the top article cell
 protocol ReloadNewArticlesDelegate: AnyObject {
-    func ActivateCellSkeletonView()
+    func activateCellSkeletonView()
+    func hideCellSkeletonView()
 }
 
 /// Activates skeleton loading views for the basic article cell
 protocol ReloadBasicArticlesDelegate: AnyObject {
-    func ActivateCellSkeletonView()
+    func activateCellSkeletonView()
+    func hideCellSkeletonView()
 }
