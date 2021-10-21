@@ -69,33 +69,32 @@ class NYT_APIService: NYT_API_Protocol {
     /// Insert an article url and this function will return an array of paragraph strings containing the body of the provided article.
     static func parseArticleHTMLFromURL(articleURLString: String, completion: @escaping ([String], Exception?) -> Void) {
         var articleParagraphs = [String]()
-        
-            guard let url = URL(string: articleURLString) else { return }
-            let html = try? String(contentsOf: url, encoding: .utf8)
-            do {
-                guard let html = html else { return }
-                let doc: Document = try SwiftSoup.parseBodyFragment(html)
-                let paragraph: [Element] = try doc.select("p").array()
+        guard let url = URL(string: articleURLString) else { return }
+        let html = try? String(contentsOf: url, encoding: .utf8)
+        do {
+            guard let html = html else { return }
+            let doc: Document = try SwiftSoup.parseBodyFragment(html)
+            let paragraph: [Element] = try doc.select("p").array()
 
-                try paragraph.forEach { para in
-                    let getArticleSum: Element? = try para.getElementById("article-summary")
-                    let getNameClass: Elements? = try para.getElementsByClass("e1jsehar1")
-                    let paraText = try para.text()
+            try paragraph.forEach { para in
+                let getArticleSum: Element? = try para.getElementById("article-summary")
+                let getNameClass: Elements? = try para.getElementsByClass("e1jsehar1")
+                let paraText = try para.text()
 
-                    if paraText != "Advertisement"
-                        && paraText != "Supported by"
-                        && paraText != "transcript"
-                        && para != getArticleSum
-                        && para != getNameClass?.first() {
-                            articleParagraphs.append(paraText)
-                        }
+                if paraText != "Advertisement"
+                    && paraText != "Supported by"
+                    && paraText != "transcript"
+                    && para != getArticleSum
+                    && para != getNameClass?.first() {
+                        articleParagraphs.append(paraText)
                     }
-                completion(articleParagraphs, nil)
-            } catch Exception.Error(_, let message) {
-                print("Message: \(message)")
-            } catch {
-                print("error")
-            }
+                }
+            completion(articleParagraphs, nil)
+        } catch Exception.Error(_, let message) {
+            print("Message: \(message)")
+        } catch {
+            print("error")
+        }
     }
 }
 
