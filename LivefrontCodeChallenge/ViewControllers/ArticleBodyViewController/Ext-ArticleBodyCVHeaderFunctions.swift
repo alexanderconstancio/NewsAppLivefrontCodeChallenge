@@ -10,7 +10,6 @@ import UIKit
 
 // Article body collectionView header delegate functions
 extension ArticleBodyViewController {
-    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let homeHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: bodyHeaderCellID, for: indexPath) as! ArticleBodyHeaderCell
         homeHeader.articleBodyViewModel = articleBodyViewModel
@@ -22,7 +21,6 @@ extension ArticleBodyViewController {
                return UICollectionReusableView()
             }
         }
-        
         return UICollectionReusableView()
     }
     

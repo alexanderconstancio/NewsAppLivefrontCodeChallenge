@@ -37,6 +37,8 @@
 		AF81D0AA270645CF00C51986 /* LivefrontCodeChallengeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF81D0A9270645CF00C51986 /* LivefrontCodeChallengeUITests.swift */; };
 		AF81D0AC270645CF00C51986 /* LivefrontCodeChallengeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF81D0AB270645CF00C51986 /* LivefrontCodeChallengeUITestsLaunchTests.swift */; };
 		AFA360AD271DC06D00E65ECC /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA360AC271DC06D00E65ECC /* ReachabilityService.swift */; };
+		AFA360AF2720624C00E65ECC /* NYT-API-Service-Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA360AE2720624C00E65ECC /* NYT-API-Service-Protocol.swift */; };
+		AFA360B22720642000E65ECC /* MockNYTApiServiceClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA360B12720641F00E65ECC /* MockNYTApiServiceClient.swift */; };
 		AFB0C89C271345760042E210 /* ArticleBodyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB0C89B271345760042E210 /* ArticleBodyViewController.swift */; };
 		AFB0C89E271345B00042E210 /* ArticleBodyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB0C89D271345B00042E210 /* ArticleBodyViewModel.swift */; };
 		AFB0C8A027134D490042E210 /* Ext-ArticleBodyCVFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB0C89F27134D490042E210 /* Ext-ArticleBodyCVFunctions.swift */; };
@@ -102,6 +104,8 @@
 		AF81D0A9270645CF00C51986 /* LivefrontCodeChallengeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivefrontCodeChallengeUITests.swift; sourceTree = "<group>"; };
 		AF81D0AB270645CF00C51986 /* LivefrontCodeChallengeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivefrontCodeChallengeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		AFA360AC271DC06D00E65ECC /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
+		AFA360AE2720624C00E65ECC /* NYT-API-Service-Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NYT-API-Service-Protocol.swift"; sourceTree = "<group>"; };
+		AFA360B12720641F00E65ECC /* MockNYTApiServiceClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNYTApiServiceClient.swift; sourceTree = "<group>"; };
 		AFB0C89B271345760042E210 /* ArticleBodyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleBodyViewController.swift; sourceTree = "<group>"; };
 		AFB0C89D271345B00042E210 /* ArticleBodyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleBodyViewModel.swift; sourceTree = "<group>"; };
 		AFB0C89F27134D490042E210 /* Ext-ArticleBodyCVFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext-ArticleBodyCVFunctions.swift"; sourceTree = "<group>"; };
@@ -227,6 +231,7 @@
 		AF4B997B2712A9FD00ACBABE /* API Service */ = {
 			isa = PBXGroup;
 			children = (
+				AFA360AE2720624C00E65ECC /* NYT-API-Service-Protocol.swift */,
 				AF29B676270F289B00832FBE /* NYT-API-Service.swift */,
 			);
 			path = "API Service";
@@ -275,6 +280,7 @@
 		AF81D09E270645CF00C51986 /* LivefrontCodeChallengeTests */ = {
 			isa = PBXGroup;
 			children = (
+				AFA360B0272063EF00E65ECC /* Mocks */,
 				AF81D09F270645CF00C51986 /* LivefrontCodeChallengeTests.swift */,
 			);
 			path = LivefrontCodeChallengeTests;
@@ -295,6 +301,14 @@
 				AFA360AC271DC06D00E65ECC /* ReachabilityService.swift */,
 			);
 			path = "Network Reachability Service";
+			sourceTree = "<group>";
+		};
+		AFA360B0272063EF00E65ECC /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				AFA360B12720641F00E65ECC /* MockNYTApiServiceClient.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		AFB0C8A3271379460042E210 /* HomeViews */ = {
@@ -595,6 +609,7 @@
 				AF47610F2710A16200FDDFC3 /* BasicArticleCell.swift in Sources */,
 				AF58F9742711FD0B00C54785 /* ActionSheetPresenterProtocol.swift in Sources */,
 				AF4B997A2712A54300ACBABE /* Ext-BasicArticleCellFunctions.swift in Sources */,
+				AFA360AF2720624C00E65ECC /* NYT-API-Service-Protocol.swift in Sources */,
 				AF4B99812712B02900ACBABE /* Ext-TopArticleReloadDelegate.swift in Sources */,
 				AF4B997F2712AFBB00ACBABE /* ReloadHomePageProtocol.swift in Sources */,
 				AFB0C8A22713713B0042E210 /* ArticleBodyCells.swift in Sources */,
@@ -617,6 +632,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF81D0A0270645CF00C51986 /* LivefrontCodeChallengeTests.swift in Sources */,
+				AFA360B22720642000E65ECC /* MockNYTApiServiceClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

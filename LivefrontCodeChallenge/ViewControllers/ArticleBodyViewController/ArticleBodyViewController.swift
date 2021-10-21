@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 class ArticleBodyViewController: UIViewController {
-    
     // Blank array of article paragraphs
     var articleParagraphs = [String]()
 
@@ -26,16 +25,7 @@ class ArticleBodyViewController: UIViewController {
             guard let article = article else {
                 return
             }
-
-            // Load article body async so that the view will display until data is available 
-            DispatchQueue.main.async {
-                self.articleBodyViewModel = ArticleBodyViewModel(article: article)
-                self.articleBodyViewModel?.articleParagraphs.forEach({ p in
-                    self.articleParagraphs.append(p)
-                })
-                
-                self.collectionView.reloadData()
-            }
+            getArticleParagraphsFrom(article)
         }
     }
     
@@ -53,9 +43,28 @@ class ArticleBodyViewController: UIViewController {
         checkConnectionStatus()
     }
     
+    /// Loops through articleBodyViewModel and appends its paragraphs to the articleParagraphs array
+    fileprivate func getArticleParagraphsFrom(_ article: ArticleViewModel) {
+        // Load article body async so that the view will display until data is available
+        DispatchQueue.main.async {
+            self.articleBodyViewModel = ArticleBodyViewModel(article: article)
+            self.articleBodyViewModel?.articleParagraphs.forEach({ p in
+                self.articleParagraphs.append(p)
+            })
+            self.collectionView.reloadData()
+        }
+    }
+    
     /// Check connection and adjust views accordingly
     fileprivate func checkConnectionStatus() {
         if NetworkReachability.isConnectedToInternet {
+            // Prevent forever hand whenever there is a poor connection
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                if self.articleParagraphs.count == 0 {
+                    self.spinner.showNoConnectionStatus()
+                    self.collectionView.isHidden = true
+                }
+            }
         } else {
             spinner.showNoConnectionStatus()
             collectionView.isHidden = true
@@ -67,8 +76,12 @@ class ArticleBodyViewController: UIViewController {
         view.backgroundColor = .dynamicColor(light: .white, dark: .systemGray6)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(ArticleBodyCell.self, forCellWithReuseIdentifier: bodyCellID)
-        collectionView.register(ArticleBodyHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: bodyHeaderCellID)
+        // Register collectionView
+        collectionView.register(ArticleBodyCell.self,
+                                forCellWithReuseIdentifier: bodyCellID)
+        collectionView.register(ArticleBodyHeaderCell.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: bodyHeaderCellID)
         collectionView.automaticallyAdjustsScrollIndicatorInsets = false
         collectionView.backgroundColor = .dynamicColor(light: .white, dark: .systemGray6)
         collectionView.alwaysBounceVertical = true

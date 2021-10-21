@@ -36,20 +36,21 @@ class SpinnerViewController: UIViewController {
     override func loadView() {
         view = UIView()
         view.backgroundColor = .clear
-
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.startAnimating()
         view.addSubview(spinner)
-
         spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
+        // Anchor no connection image
         view.addSubview(noConnectionImg)
         noConnectionImg
             .anchor(top: nil, left: nil, bottom: nil, right: nil,
                     centerX: view.centerXAnchor, centerY: view.centerYAnchor,
                     paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0,
                     width: 100, height: 100, xPadding: 0, yPadding: -50)
+        
+        // Anchor no connection label
         view.addSubview(noConnectionLabel)
         noConnectionLabel.anchor(top: noConnectionImg.bottomAnchor, left: nil, bottom: nil, right: nil, centerX: view.centerXAnchor, centerY: nil, paddingTop: 10, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, xPadding: 0, yPadding: 0)
     }

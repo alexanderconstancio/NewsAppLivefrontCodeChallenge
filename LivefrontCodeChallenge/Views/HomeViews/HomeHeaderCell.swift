@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 class HomeHeaderCell: UICollectionViewCell {
-    
     /// News! text label
     let newsLabel: UILabel = {
         let label = UILabel()

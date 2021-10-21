@@ -10,7 +10,6 @@ import UIKit
 
 /// Paragraph cell for article body 
 class ArticleBodyCell: UICollectionViewCell {
-    
     var paragraphString: String? {
         didSet {
             guard let paragraphString = paragraphString else { return }

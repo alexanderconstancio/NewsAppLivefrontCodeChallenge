@@ -10,7 +10,6 @@ import UIKit
 
 // Home collectionView supplementary functions 
 extension HomeViewController {
-    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let homeHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerCellID, for: indexPath) as! HomeHeaderCell
         let section = indexPath.section
@@ -21,7 +20,6 @@ extension HomeViewController {
                return UICollectionReusableView()
             }
         }
-        
         return UICollectionReusableView()
     }
     

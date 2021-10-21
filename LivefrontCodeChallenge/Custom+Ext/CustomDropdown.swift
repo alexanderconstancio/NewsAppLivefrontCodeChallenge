@@ -18,7 +18,6 @@ class CellMenuDropdown: DropDown {
         selectionBackgroundColor = .systemGray5
         selectedTextColor = .systemGray
         width = 150
-        
         dataSource = options
         anchorView = anchorButton
     }

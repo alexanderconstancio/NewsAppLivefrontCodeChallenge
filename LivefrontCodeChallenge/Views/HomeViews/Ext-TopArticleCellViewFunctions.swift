@@ -10,7 +10,6 @@ import UIKit
 import SkeletonView
 
 extension TopArticleCell {
-    
     /// Presents date range dropdown for article range
     @objc func showDateRangeMenu() {
         dateRangeDropDown.show()
@@ -51,7 +50,6 @@ extension TopArticleCell {
         // Setup for cell options menu
         articleOptionsDropDown.setupCustomDropdown(options: ["Share", "Copy link"], anchorButton: optionsButton)
         articleOptionsDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            
             if index == 0 {
                 self.presentShareSheet()
             } else if index == 1 {
@@ -63,16 +61,15 @@ extension TopArticleCell {
         // Setup for article list timeframe menu
         dateRangeDropDown.setupCustomDropdown(options: ["Today", "Past week", "Last 30 days"], anchorButton: changeArticleRangeButton)
         dateRangeDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-        
             if index == 0 {
                 // Today option selected. Param: 1
-                shareSheetDelegate?.dateRangeSelected(inRange: 1)
+                shareSheetDelegate?.dateRangeSelected(inRange: .today)
             } else if index == 1 {
                 // last 7 days option selected. Param: 7
-                shareSheetDelegate?.dateRangeSelected(inRange: 7)
+                shareSheetDelegate?.dateRangeSelected(inRange: .thisWeek)
             } else if index == 2 {
                 // last 30 days selected: Param: 30
-                shareSheetDelegate?.dateRangeSelected(inRange: 30)
+                shareSheetDelegate?.dateRangeSelected(inRange: .thisMonth)
             }
             self.dateRangeDropDown.clearSelection()
         }
@@ -84,7 +81,6 @@ extension TopArticleCell {
         guard let url = URL(string: articleUrl) else {
             return
         }
-        
         let shareSheetVC = UIActivityViewController(activityItems: [url], applicationActivities: .none)
         shareSheetDelegate?.presentActionSheet(forSheet: shareSheetVC)
     }

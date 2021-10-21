@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+/// An object that decodes an incoming article from the NYT api and holds its values
 struct Article: Decodable {
     let title: String
     let url: String

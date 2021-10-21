@@ -10,7 +10,6 @@ import Alamofire
 import SkeletonView
 
 class HomeViewController: UIViewController {
-    
     weak var reloadArticleCellsDelegate: ReloadNewArticlesDelegate?
     var reloadBasicArticleCellsDelegate = [ReloadBasicArticlesDelegate]()
     
@@ -25,10 +24,10 @@ class HomeViewController: UIViewController {
     let spinner = SpinnerViewController()
     
     /// Param used to first load of all popular articles today
-    var popularArticlesIndexNumber = 1
+    var articleAPIReturnRange: NYT_APITimeframes = .today
     
     /// Value of current pages title inside cell, starting with today. This updates when the setting is changed
-    var currentPageIndexTitle = "Trending Today"
+    var currentPageIndexTitle: NYT_APITimeframeText = .trendingToday
     
     private var refreshControl = UIRefreshControl()
     
@@ -46,7 +45,7 @@ class HomeViewController: UIViewController {
         setupStatusBarView()
         
         // Initial load is done with 'today' param
-        fetchArticleDataWith(timeFrame: popularArticlesIndexNumber)
+        fetchArticleDataWith(timeFrame: articleAPIReturnRange)
     }
     
     /// Adds a custom view behind the status bar so it looks prettier
@@ -71,19 +70,21 @@ class HomeViewController: UIViewController {
         view.addSubview(statusBarView)
     }
     
-    /// All collectionView properties and setup
+    /// All collectionView properties and setup as well as attaching to viewController
     fileprivate func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
+        // Register collectionView cells
         collectionView.register(TopArticleCell.self, forCellWithReuseIdentifier: topArticleCellID)
         collectionView.register(BasicArticleCell.self, forCellWithReuseIdentifier: basicArticleCellID)
         collectionView.register(HomeHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerCellID)
         collectionView.automaticallyAdjustsScrollIndicatorInsets = false
         collectionView.backgroundColor = .dynamicColor(light: .systemGray6, dark: .black)
+        // Attach refreshControl to the collectionView
         collectionView.alwaysBounceVertical = true
         collectionView.refreshControl = refreshControl
         
-        // Add target to collectionView
+        // Add target to refresh control
         refreshControl.addTarget(self, action: #selector(refreshHomePage), for: .valueChanged)
         
         // Anchor collectionView
@@ -98,15 +99,17 @@ class HomeViewController: UIViewController {
     
     /// Refresh home page
     @objc fileprivate func refreshHomePage() {
-        fetchArticleDataWith(timeFrame: popularArticlesIndexNumber)
+        fetchArticleDataWith(timeFrame: articleAPIReturnRange)
     }
     
     /// Fetches articles with timeFrame param. Params are specified in the NYT_APIService documentation
-    func fetchArticleDataWith(timeFrame: Int) {
+    func fetchArticleDataWith(timeFrame: NYT_APITimeframes) {
+        // First check if there is an internet connection present before we run networking methods
         if NetworkReachability.isConnectedToInternet {
             NYT_APIService.fetchPopularArticlesBy(timeframe: timeFrame) { [unowned self] articles, error in
                 if let error = error {
                     print("Error fetching popular articles: ", error)
+                    activateNoConnectionState()
                 }
                 self.articleViewModels = articles.map({ return ArticleViewModel(article: $0)})
                 self.collectionView.reloadData()
@@ -114,18 +117,23 @@ class HomeViewController: UIViewController {
             }
         } else {
             // No internet connection
+            activateNoConnectionState()
+        }
+    }
+    
+    /// Puts the app in a state displaying to the user that there is currently no connection available
+    fileprivate func activateNoConnectionState() {
+        DispatchQueue.main.async {
             // If no internet connection found then we will hide the skeleton views
-            DispatchQueue.main.async {
-                self.reloadArticleCellsDelegate?.hideCellSkeletonView()
-                self.reloadBasicArticleCellsDelegate.forEach { delegate in
-                    delegate.hideCellSkeletonView()
-                }
-                self.articleViewModels.removeAll()
-                self.refreshControl.endRefreshing()
-                self.collectionView.reloadData()
-                self.createSpinnerView()
-                self.spinner.showNoConnectionStatus()
+            self.reloadArticleCellsDelegate?.hideCellSkeletonView()
+            self.reloadBasicArticleCellsDelegate.forEach { delegate in
+                delegate.hideCellSkeletonView()
             }
+            self.articleViewModels.removeAll()
+            self.refreshControl.endRefreshing()
+            self.collectionView.reloadData()
+            self.createSpinnerView()
+            self.spinner.showNoConnectionStatus()
         }
     }
     

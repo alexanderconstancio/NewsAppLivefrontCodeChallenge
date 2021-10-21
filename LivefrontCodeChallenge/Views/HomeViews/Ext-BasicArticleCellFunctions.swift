@@ -10,7 +10,6 @@ import UIKit
 import DropDown
 
 extension BasicArticleCell {
-    
     /// Setup for the cells drop down menus, article options and date range options
     func setupMenuDropdown() {
         dropDown.setupCustomDropdown(options: ["Share", "Copy link"], anchorButton: optionsButton)
@@ -30,11 +29,11 @@ extension BasicArticleCell {
         guard let url = URL(string: articleUrl) else {
             return
         }
-        
         let shareSheetVC = UIActivityViewController(activityItems: [url], applicationActivities: .none)
         shareSheetDelegate?.presentActionSheet(forSheet: shareSheetVC)
     }
     
+    /// Calls delegate method that presents alert copied to clipboard
     fileprivate func copyToClipboard() {
         guard let articleUrl = articleViewModel?.url else { return }
         UIPasteboard.general.string = articleUrl

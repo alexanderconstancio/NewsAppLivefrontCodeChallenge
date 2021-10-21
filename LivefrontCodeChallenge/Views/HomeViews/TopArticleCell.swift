@@ -11,9 +11,7 @@ import DropDown
 import Nuke
 
 class TopArticleCell: UICollectionViewCell {
-    
     weak var shareSheetDelegate: ActionSheetPresenterDelegate?
-    
     /// Custom settings dropdown menu
     let articleOptionsDropDown = CellMenuDropdown()
     let dateRangeDropDown = CellMenuDropdown()
@@ -21,10 +19,8 @@ class TopArticleCell: UICollectionViewCell {
     var articleViewModel: ArticleViewModel? {
         didSet {
             guard let articleViewModel = articleViewModel else { return }
-            
             self.articleTitleLabel.text = articleViewModel.title
             self.byLabel.text = articleViewModel.byline
-            
             self.dateLabel.text = articleViewModel.date
             
             /* I know this is strange lol but I needed a non-image url so that NUKE will
@@ -76,6 +72,7 @@ class TopArticleCell: UICollectionViewCell {
         return label
     }()
     
+    /// Label showing the article title
     let articleTitleLabel: UILabel = {
         let label = UILabel()
         label.isSkeletonable = true
@@ -91,6 +88,7 @@ class TopArticleCell: UICollectionViewCell {
         return view
     }()
     
+    /// Small button on bottom right to present article menu
     lazy var optionsButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
@@ -108,6 +106,7 @@ class TopArticleCell: UICollectionViewCell {
         return label
     }()
     
+    /// Presents dropdown menu to change
     let changeArticleRangeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "dropdown-arrow"), for: .normal)

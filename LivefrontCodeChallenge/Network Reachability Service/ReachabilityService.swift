@@ -11,7 +11,7 @@ import Alamofire
 public struct NetworkReachability {
   static let sharedInstance = NetworkReachabilityManager()!
     
-    /// Returns true or false when an internet connection is not available 
+  /// Returns true or false when an internet connection is not available 
   static var isConnectedToInternet:Bool {
       return self.sharedInstance.isReachable
     }

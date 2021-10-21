@@ -9,9 +9,8 @@ import Foundation
 import UIKit
 
 extension HomeViewController: ActionSheetPresenterDelegate {
-    
     // Handle logic for new article timeframe 
-    func dateRangeSelected(inRange: Int) {
+    func dateRangeSelected(inRange: NYT_APITimeframes) {
         reloadArticleCellsDelegate?.activateCellSkeletonView()
         
         reloadBasicArticleCellsDelegate.forEach { delegate in
@@ -21,18 +20,19 @@ extension HomeViewController: ActionSheetPresenterDelegate {
         fetchArticleDataWith(timeFrame: inRange)
         
         // Set the current page title based on the range entered 
-        if inRange == 1 {
-            currentPageIndexTitle = "Trending Today"
-            popularArticlesIndexNumber = 1
-        } else if inRange == 7 {
-            currentPageIndexTitle = "Trending this Week"
-            popularArticlesIndexNumber = 7
+        if inRange == .today {
+            currentPageIndexTitle = .trendingToday
+            articleAPIReturnRange = .today
+        } else if inRange == .thisWeek {
+            currentPageIndexTitle = .trendingThisWeek
+            articleAPIReturnRange = .thisWeek
         } else {
-            currentPageIndexTitle = "Trending Last 30 Days"
-            popularArticlesIndexNumber = 30
+            currentPageIndexTitle = .trendingThisMonth
+            articleAPIReturnRange = .thisMonth
         }
     }
     
+    // Presents alert controller showing that we have successfully copied to clipboard 
     func showCopyToClipAlert() {
         let alert = UIAlertController(title: "Copied to clipboard", message: "", preferredStyle: UIAlertController.Style.alert)
         self.present(alert, animated: true, completion: nil)

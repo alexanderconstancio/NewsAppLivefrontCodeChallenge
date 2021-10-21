@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 extension ArticleBodyViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         articleParagraphs.count
     }

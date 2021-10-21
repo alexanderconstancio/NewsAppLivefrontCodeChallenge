@@ -17,5 +17,5 @@ protocol ActionSheetPresenterDelegate: AnyObject {
     func showCopyToClipAlert()
     
     /// Activates method from homeViewController inside of the cell and reloads the articles with a new time range
-    func dateRangeSelected(inRange: Int)
+    func dateRangeSelected(inRange: NYT_APITimeframes)
 }

@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
+// UICollectionView delegate and dataSource functions
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return articleViewModels.count
     }
@@ -30,10 +30,11 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
                 basicCell.hideAnimation()
             }
             
+        // If the cell equals the first in the list, we return the large full sized featured article cell.
             if indexPath.item == 0 {
                 reloadArticleCellsDelegate = topCell
                 topCell.articleViewModel = articleViewModel
-                topCell.timeFrameLabel.text = currentPageIndexTitle
+                topCell.timeFrameLabel.text = currentPageIndexTitle.rawValue
                 
                 // Remove initial spinner from parent views
                 self.spinner.willMove(toParent: nil)
@@ -51,10 +52,12 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.item == 0 {
+            // Return the first cells width as the frames width - 20 because we are adding
+            // insets below to the collectionView. See insetForSectionAt below.
             return CGSize(width: view.frame.width - 20, height: 500)
         }
         
-        // this logic returns the basic cells layout side by side
+        // This logic returns the basic cells layout side by side
         let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout
         let space: CGFloat = (flowLayout?.minimumInteritemSpacing ?? 0.0) + (flowLayout?.sectionInset.left ?? 0.0) + (flowLayout?.sectionInset.right ?? 0.0)
         let size: CGFloat = (collectionView.frame.size.width - space) / 2.0
@@ -66,6 +69,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // Present the article body viewController when selected a cell
+        // We provide the presented controller with an articleViewModel object
         let articleBodyVC = ArticleBodyViewController()
         let articleViewModel = articleViewModels[indexPath.item]
         articleBodyVC.article = articleViewModel

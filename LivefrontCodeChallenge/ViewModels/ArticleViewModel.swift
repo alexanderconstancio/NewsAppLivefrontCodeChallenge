@@ -27,15 +27,12 @@ struct ArticleViewModel {
         self.jsonImg = article.media.first ?? JSONImage(metaData: [JSONImgMetaData]())
         
         let rawDate = article.date
-
         let dateFormatter = DateFormatter()
         let tempLocale = dateFormatter.locale
-        
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
         let date = dateFormatter.date(from: rawDate)!
-        
         dateFormatter.dateFormat = "MMM d, yyyy"
         dateFormatter.locale = tempLocale
         let dateString = dateFormatter.string(from: date)

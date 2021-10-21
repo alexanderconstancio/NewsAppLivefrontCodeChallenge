@@ -10,7 +10,6 @@ import UIKit
 import Nuke
 
 class ArticleBodyHeaderCell: UICollectionViewCell {
-    
     var articleBodyViewModel: ArticleBodyViewModel? {
         didSet {
             guard let articleBodyViewModel = articleBodyViewModel else { return }

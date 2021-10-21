@@ -11,10 +11,8 @@ import DropDown
 import Nuke
 
 class BasicArticleCell: UICollectionViewCell {
-    
     let dropDown = CellMenuDropdown()
     weak var shareSheetDelegate: ActionSheetPresenterDelegate?
-    
     var articleViewModel: ArticleViewModel? {
         didSet {
             guard let articleViewModel = articleViewModel else { return }
